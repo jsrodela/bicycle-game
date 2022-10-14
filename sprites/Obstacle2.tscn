@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Obstacle2.png" type="Texture" id=1]
+[ext_resource path="res://sprites/Obstacle2.gd" type="Script" id=2]
+
+[node name="Obstacle2" type="RigidBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 0.296706
+scale = Vector2( 1, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 70, -50 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -203, -9, -150, -55, -24, -62, 57, -74, 165, -16, 131, 91, 31, 107, -52, 76, -183, 37 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 60.5, 13.5 )
+scale = Vector2( 26.75, 9.65 )
