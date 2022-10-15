@@ -23,7 +23,7 @@ func _process(_delta):
 
 	progress_id = 0
 	for i in range(1,4):
-		if (abs((rect_position.x + rect_size.x/2) - (3*i-1) * 0.1 * screen_width) < border_width + 40):
+		if (abs((rect_position.x + rect_size.x/2) - (3*i-1) * 0.1 * screen_width) < border_width + 100):
 			progress_id = i
 			break
 
