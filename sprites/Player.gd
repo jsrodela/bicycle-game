@@ -2,9 +2,12 @@ extends Area2D
 
 signal hit
 
+const y_range = 30
+
+
 func _process(delta):
 	if Global.playing:
-		if (position.y < 0 or position.y > 1080):
+		if (position.y < - y_range or position.y > 1080 + y_range):
 			hit()
 
 
