@@ -58,10 +58,10 @@ __meta__ = {
 [node name="ScoreLabel" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -450.0
+margin_left = -840.0
 margin_top = 50.0
-margin_right = -50.0
-margin_bottom = 150.0
+margin_right = -40.0
+margin_bottom = 164.0
 custom_fonts/font = SubResource( 1 )
 align = 2
 valign = 1
