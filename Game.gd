@@ -92,7 +92,17 @@ func game_over():
 	$ObstacleTimer.stop()
 	$SceneTimer.wait_time = 3
 	$SceneTimer.start()
+	save_score()
 
 
 func atan3(v:Vector2):
 	return atan2(v.y, v.x)
+
+
+func save_score():
+	if (Global.highscore[Global.difficulty - 1] < score):
+		Global.highscore[Global.difficulty - 1] = score
+	var save_file = File.new()
+	save_file.open("user://highscore.save", File.WRITE)
+	save_file.store_line(to_json({"highscore": Global.highscore}))
+	save_file.close()

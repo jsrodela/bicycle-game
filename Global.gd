@@ -2,6 +2,7 @@ extends Node
 
 var difficulty:int = 0
 var playing:bool = false
+var highscore = [0, 0, 0]
 
 
 func _ready():
