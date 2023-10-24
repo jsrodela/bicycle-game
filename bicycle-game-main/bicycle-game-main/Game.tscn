@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://fonts/Roboto-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Game.gd" type="Script" id=2]
+[ext_resource path="res://sprites/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sprites/Obstacle1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sprites/line.tscn" type="PackedScene" id=5]
+
+[sub_resource type="DynamicFont" id=3]
+size = 120
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 96
+outline_size = 1
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1600, 0, 0, 0, 0, 0, 1920, 0, 0, 0, 0, 0, 1920, 1080, 0, 0, 0, 0, 1600, 1080 )
+}
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array(  )
+}
+
+[node name="Game1" type="Node"]
+script = ExtResource( 2 )
+obstacle1_scene = ExtResource( 4 )
+obstacle2_scene = ExtResource( 5 )
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ColorBackground" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="MessageLabel" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -100.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 3 )
+text = "Ready"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LevelLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -840.0
+margin_top = 900.0
+margin_right = -40.0
+margin_bottom = 1014.0
+custom_fonts/font = SubResource( 1 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -840.0
+margin_top = 50.0
+margin_right = -40.0
+margin_bottom = 164.0
+custom_fonts/font = SubResource( 1 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 360, 540 )
+scale = Vector2( 0.65, 0.65 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SceneTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="ObstaclePath" type="Path2D" parent="."]
+curve = SubResource( 4 )
+
+[node name="ObstacleSpawnLocation" type="PathFollow2D" parent="ObstaclePath"]
+position = Vector2( 1600, 0 )
+
+[node name="LinePath" type="Path2D" parent="."]
+curve = SubResource( 5 )
+
+[node name="LineSpawnLocation" type="PathFollow2D" parent="LinePath"]
+position = Vector2( 2100, 500 )
+scale = Vector2( 3, 3 )
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="SceneTimer" to="." method="_on_SceneTimer_timeout"]
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_ObstacleTimer_timeout"]
