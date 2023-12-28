@@ -3,7 +3,7 @@ extends Node
 var difficulty:int = 0
 var playing:bool = false
 var highscore = [0, 0, 0]
-
+var level:int = 0
 
 func _ready():
 	OS.window_fullscreen = false

@@ -14,21 +14,28 @@ const sensitivity:float = 1.5
 
 var score:int = 0
 var vy:float = 0
+var line_spawn:bool = true
+
+var line_score: Array = [1, 3, 5, 10, 20, 30, 40, 50, 60] # 이 점수에 도달하면 선이 나옴
 
 
 func _ready():
 	randomize()
+	Global.level = 0
 	$MessageLabel.text = "READY"
 	$MessageLabel.show()
 	$SceneTimer.wait_time = 1
 	$SceneTimer.start()
 	$ScoreTimer.connect("timeout", self, "_on_ScoreTimer_timeout")
 	$ScoreLabel.hide()
+	$LevelLabel.hide()
 	player.position = Vector2(360, 540)
 
 
 func _process(delta):
+	
 	if Global.playing:
+		
 		if Input.is_action_pressed("move"):
 			# Accelerate upwards
 			if (vy > min_vy):
@@ -41,6 +48,28 @@ func _process(delta):
 		player.rotation = atan2(vy, vx)
 
 		player.position.y += vy * delta
+		
+		
+		if score in line_score and line_spawn == true:
+			line_spawn = false
+			
+			var line = obstacle2_scene.instance()
+	
+			var line_spawn_location = get_node("LinePath/LineSpawnLocation")
+			
+			line.position = line_spawn_location.position
+			line.rotation = PI
+			
+			var line_velocity = Vector2(700, 0)
+			line.linear_velocity = line_velocity.rotated(line.rotation)
+
+			
+			add_child(line)
+			
+		if score-1 in line_score:
+			line_spawn = true			
+		
+		$LevelLabel.text = "level: %d" % Global.level # 레벨 표시하는 부분
 
 
 func _on_SceneTimer_timeout():
@@ -55,6 +84,8 @@ func _on_SceneTimer_timeout():
 		$ScoreTimer.start()
 		$ScoreLabel.text = "Score: %d" % score
 		$ScoreLabel.show()
+		$LevelLabel.text = "level: %d" % Global.level
+		$LevelLabel.show()
 		$ObstacleTimer.start()
 	else:
 		# Game over
@@ -84,7 +115,8 @@ func _on_ObstacleTimer_timeout():
 	obstacle.linear_velocity = velocity.rotated(direction)
 
 	add_child(obstacle)
-
+	
+	
 
 func game_over():
 	Global.playing = false

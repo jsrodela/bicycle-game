@@ -6,7 +6,7 @@ onready var progress_bar = $GameSelectionProgress
 onready var timer = $GameSelectionTimer
 
 var screen_width = 1920
-var speed:float = 4
+var speed:float = 8
 var selection_delay:float = 2
 var progress_id:int = 0
 

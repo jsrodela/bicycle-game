@@ -1,6 +1,7 @@
 extends Area2D
 
 signal hit
+signal level_up
 
 const y_range = 30
 
@@ -12,8 +13,13 @@ func _process(delta):
 
 
 func _on_Player_body_entered(body):
-	hit()
-
+	print(body.name,'hello')
+	if 'Obstacle1' in body.name:
+		hit()
+	if 'line' in body.name:
+		Global.level += 1
+		emit_signal('level_up')
+		print(Global.level)
 
 func hit():
 	hide()

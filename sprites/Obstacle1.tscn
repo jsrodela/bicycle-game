@@ -7,6 +7,8 @@
 radius = 65.0077
 
 [node name="Obstacle1" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
